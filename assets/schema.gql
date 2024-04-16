@@ -3,6 +3,25 @@ schema {
   mutation: RootMutationType
 }
 
+"""
+The `DateTime` scalar type represents a date and time in the UTC
+timezone. The DateTime appears in a JSON response as an ISO8601 formatted
+string, including UTC timezone ("Z"). The parsed date and time string will
+be converted to UTC if there is an offset.
+"""
+scalar DateTime
+
+type PageInfo {
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+}
+
 type RootMutationType {
   createTweet(content: String!): Tweet
   signIn(password: String!, username: String!): String!
@@ -11,19 +30,31 @@ type RootMutationType {
 
 type RootQueryType {
   me: User
-  tweets: [Tweet!]
+  tweets(after: String, before: String, first: Int, last: Int): TweetConnection
 }
 
 type Tweet {
-  author: User
-  content: String
-  id: ID
-  likes: Int
+  content: String!
+  id: ID!
+  insertedAt: DateTime!
+  likes: Int!
+  user: User!
+}
+
+type TweetConnection {
+  edges: [TweetEdge]
+  pageInfo: PageInfo!
+}
+
+type TweetEdge {
+  cursor: String
+  node: Tweet
 }
 
 type User {
-  id: ID
-  username: String
+  avatarUrl: String
+  id: ID!
+  username: String!
 }
 
 input UserInput {

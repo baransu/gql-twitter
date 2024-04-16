@@ -1,11 +1,15 @@
 defmodule TwitterWeb.Schema do
   use Absinthe.Schema
+  use Absinthe.Relay.Schema, :modern
 
   alias TwitterWeb.AuthMiddleware
   alias Twitter.Accounts.User
 
+  import_types(Absinthe.Type.Custom)
   import_types(TwitterWeb.Schema.Types)
   import_types(TwitterWeb.Schema.AccountSchema)
+
+  connection(node_type: :tweet)
 
   query do
     field :me, :user do
@@ -16,10 +20,9 @@ defmodule TwitterWeb.Schema do
       end)
     end
 
-    field :tweets, list_of(non_null(:tweet)) do
-      resolve(fn _, _ ->
-        tweets = Twitter.Tweets.list_tweets()
-        {:ok, tweets}
+    connection field :tweets, node_type: :tweet do
+      resolve(fn pagination_args, _ ->
+        Twitter.Tweets.list_tweets(pagination_args)
       end)
     end
   end

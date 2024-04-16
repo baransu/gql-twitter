@@ -8,6 +8,7 @@ defmodule Twitter.Tweets do
 
   alias Twitter.Tweets.Tweet
   alias Twitter.Accounts
+  alias Absinthe.Relay
 
   @doc """
   Returns the list of tweets.
@@ -18,8 +19,9 @@ defmodule Twitter.Tweets do
       [%Tweet{}, ...]
 
   """
-  def list_tweets do
-    Repo.all(Tweet)
+  def list_tweets(args) do
+    from(t in Tweet, order_by: [desc: t.inserted_at])
+    |> Relay.Connection.from_query(&Repo.all/1, args)
   end
 
   @doc """
@@ -105,5 +107,10 @@ defmodule Twitter.Tweets do
   """
   def change_tweet(%Tweet{} = tweet, attrs \\ %{}) do
     Tweet.changeset(tweet, attrs)
+  end
+
+  def get_likes(tweet_id) do
+    # todo: impl
+    0
   end
 end

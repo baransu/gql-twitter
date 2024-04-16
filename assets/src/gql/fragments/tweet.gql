@@ -1,0 +1,9 @@
+fragment Tweet on Tweet {
+    id
+    content
+    insertedAt
+    likes
+    user {
+        ...User
+    }
+}

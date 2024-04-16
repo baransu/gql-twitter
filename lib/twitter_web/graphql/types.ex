@@ -5,8 +5,15 @@ defmodule TwitterWeb.Schema.Types do
   alias Twitter.Accounts.User
 
   object :user do
-    field :id, :id
-    field :username, :string
+    field :id, non_null(:id)
+    field :username, non_null(:string)
+
+    field :avatar_url, :string do
+      resolve(fn _, %{source: %{id: id}} ->
+        index = id |> rem(50)
+        {:ok, "https://avatar.iran.liara.run/public/#{index}"}
+      end)
+    end
   end
 
   input_object :user_input do
@@ -15,13 +22,18 @@ defmodule TwitterWeb.Schema.Types do
   end
 
   object :tweet do
-    field :id, :id
-    field :content, :string
+    field :id, non_null(:id)
+    field :content, non_null(:string)
+    field :inserted_at, non_null(:datetime)
 
-    field :user, non_null(list_of(non_null(:user))) do
+    field :user, non_null(:user) do
       resolve(dataloader(User))
     end
 
-    field :likes, :integer
+    field :likes, non_null(:integer) do
+      resolve(fn _, %{source: %{id: id}} ->
+        {:ok, Twitter.Tweets.get_likes(id)}
+      end)
+    end
   end
 end

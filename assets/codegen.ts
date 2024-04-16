@@ -10,6 +10,12 @@ const config: CodegenConfig = {
         includeDirectives: true,
       },
     },
+    "./src/gql/introspection.json": {
+      plugins: ["introspection"],
+      config: {
+        minify: true,
+      },
+    },
     "./src/gql/generated.ts": {
       plugins: [
         {
@@ -21,6 +27,7 @@ const config: CodegenConfig = {
         "typescript-operations",
         {
           "typescript-urql": {
+            nonOptionalTypename: true,
             withHooks: true,
           },
         },

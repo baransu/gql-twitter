@@ -1,0 +1,13 @@
+query Tweets($first: Int!, $after: String) {
+    tweets(first: $first, after: $after) {
+        pageInfo {
+            hasNextPage
+            endCursor
+        }
+        edges {
+            node {
+                ...Tweet
+            }
+        }
+    }
+}
