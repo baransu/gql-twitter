@@ -1,0 +1,32 @@
+schema {
+  query: RootQueryType
+  mutation: RootMutationType
+}
+
+type RootMutationType {
+  createTweet(content: String!): Tweet
+  signIn(password: String!, username: String!): String!
+  signUp(user: UserInput!): String!
+}
+
+type RootQueryType {
+  me: User
+  tweets: [Tweet!]
+}
+
+type Tweet {
+  author: User
+  content: String
+  id: ID
+  likes: Int
+}
+
+type User {
+  id: ID
+  username: String
+}
+
+input UserInput {
+  password: String!
+  username: String!
+}

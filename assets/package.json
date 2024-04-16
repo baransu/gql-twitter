@@ -1,0 +1,28 @@
+{
+  "name": "assets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "typecheck": "tsc --noEmit",
+    "codegen": "graphql-codegen"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@urql/exchange-graphcache": "^7.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.4.5",
+    "urql": "^4.0.7"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/typescript": "^4.0.6",
+    "@graphql-codegen/typescript-operations": "^4.2.0",
+    "@graphql-codegen/typescript-urql": "^4.0.0",
+    "@types/react": "^18.2.79",
+    "@types/react-dom": "^18.2.25"
+  }
+}
