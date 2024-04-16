@@ -41,7 +41,6 @@ import {
   CardTitle,
 } from "./components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "./components/ui/avatar";
-import uniqBy from "lodash/uniqBy";
 
 type Page = "home" | "signin" | "signup";
 
@@ -337,6 +336,7 @@ function Tweets() {
 
   // todo: add subscription
   // todo: add likes (and like subscription)
+  // todo: add favicon
 
   const fetchMore = useCallback(() => {
     if (data?.tweets?.pageInfo.hasNextPage) {
