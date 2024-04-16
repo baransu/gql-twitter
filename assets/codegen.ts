@@ -10,12 +10,6 @@ const config: CodegenConfig = {
         includeDirectives: true,
       },
     },
-    "./src/gql/introspection.json": {
-      plugins: ["introspection"],
-      config: {
-        minify: true,
-      },
-    },
     "./src/gql/generated.ts": {
       plugins: [
         {

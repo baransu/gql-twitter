@@ -347,17 +347,10 @@ function Tweets() {
     }
   }, [data?.tweets?.pageInfo]);
 
-  const newTweets = useMemo(
+  const tweets = useMemo(
     () => data?.tweets?.edges?.map((edge) => edge?.node).filter(isNotNull),
     [data?.tweets?.edges],
   );
-
-  const [tweets, setTweets] = useState<TweetFragment[]>([]);
-  useEffect(() => {
-    if (newTweets) {
-      setTweets((tweets) => uniqBy([...tweets, ...newTweets], "id"));
-    }
-  }, [newTweets]);
 
   const hasMore = useMemo(() => data?.tweets?.pageInfo.hasNextPage ?? true, []);
 
