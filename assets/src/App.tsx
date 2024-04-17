@@ -364,7 +364,7 @@ function Tweets() {
       </h3>
       <InfiniteScroll
         className="space-y-4"
-        dataLength={tweets.length}
+        dataLength={tweets?.length ?? 0}
         next={fetchMore}
         hasMore={hasMore}
         loader={null} // <h4>Loading...</h4>}
@@ -423,9 +423,7 @@ function Tweet({
             {new Date(tweet.insertedAt).toLocaleString()}
           </span>
         </CardTitle>
-        <CardDescription>
-          {tweet.id} | {tweet.content}
-        </CardDescription>
+        <CardDescription>{tweet.content}</CardDescription>
       </CardHeader>
     </Card>
   );
